@@ -1,0 +1,6 @@
+python3 wc.py
+3 7 28
+with input:
+qwe rty uio
+asd fgh ghgh
+qq

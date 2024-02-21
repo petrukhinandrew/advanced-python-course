@@ -1,0 +1,4 @@
+python3 nl.py .\test_files\test1.txt
+1  1
+2  2 3
+3  4 5 6 

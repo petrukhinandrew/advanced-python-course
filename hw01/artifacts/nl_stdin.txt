@@ -1,0 +1,10 @@
+python3 nl.py
+1  qwe
+2  asd
+3  zxc
+4  1234
+with input:
+qwe
+asd
+zxc
+1234
