@@ -15,21 +15,21 @@ class LatexTablePlacement(Enum):
 
 
 class LatexTableRowBorderPreset:
-    def none(n, line, islast): return "{} \\\\ \n".format(line)
+    def none(n, line, _): return "{} \\\\ \n".format(line)
 
-    def firstsingle(n, line, islast): return "{0} \\\\ {1}\n".format(
+    def firstsingle(n, line, _): return "{0} \\\\ {1}\n".format(
         line, "\n\\hline" if n == 0 else "")
-    def firstdouble(n, line, islast): return "{0} \\\\ {1}\n".format(
+    def firstdouble(n, line, _): return "{0} \\\\ {1}\n".format(
         line, "\n\\hline \\hline" if n == 0 else "")
 
-    def midsingle(n, line, islast): return "{} \\\\ {} \n".format(line, "\n\\hline \n" if not islast else "")
+    def midsingle(_, line, islast): return "{} \\\\ {} \n".format(line, "\n\\hline" if not islast else "")
 
     def middouble(
-        n, line, islast): return "{} \\\\ {} \n".format(line,"\n\\hline \\hline \n" if not islast else "")
+        _, line, islast): return "{} \\\\ {} \n".format(line,"\n\\hline \\hline" if not islast else "")
 
-    def allsingle(n, line, islast): return ("\\hline \n" if n ==
+    def allsingle(n, line, _): return ("\\hline \n" if n ==
                                             0 else "") + "{} \\\\ \n\\hline \n".format(line)
-    def alldouble(n, line, islast): return ("\\hline \\hline \n" if n ==
+    def alldouble(n, line, _): return ("\\hline \\hline \n" if n ==
                                             0 else "") + "{} \\\\ \n\\hline \\hline \n".format(line)
 
 
@@ -116,7 +116,7 @@ class LatexTable:
         
         fmt_tab_args = preset[0](preset[2](col_cnt))
         
-        content = "".join([preset[1](n, as_ltx_arr(line), n == row_cnt)
+        content = "".join([preset[1](n, as_ltx_arr(line), n == row_cnt - 1)
                           for (n, line) in enumerate(proper_ds)]).rstrip("\n")
         return Formatter.env("tabular")(content, args=fmt_tab_args).rstrip("\n")
 
