@@ -1,6 +1,6 @@
 from __future__ import annotations
 from enum import Enum
-from gen_utils import Formatter
+from .gen_utils import Formatter
 
 
 class LatexTableAlignment(Enum):
@@ -19,18 +19,20 @@ class LatexTableRowBorderPreset:
 
     def firstsingle(n, line, _): return "{0} \\\\ {1}\n".format(
         line, "\n\\hline" if n == 0 else "")
+
     def firstdouble(n, line, _): return "{0} \\\\ {1}\n".format(
         line, "\n\\hline \\hline" if n == 0 else "")
 
-    def midsingle(_, line, islast): return "{} \\\\ {} \n".format(line, "\n\\hline" if not islast else "")
+    def midsingle(_, line, islast): return "{} \\\\ {} \n".format(
+        line, "\n\\hline" if not islast else "")
 
     def middouble(
-        _, line, islast): return "{} \\\\ {} \n".format(line,"\n\\hline \\hline" if not islast else "")
+        _, line, islast): return "{} \\\\ {} \n".format(line, "\n\\hline \\hline" if not islast else "")
 
     def allsingle(n, line, _): return ("\\hline \n" if n ==
-                                            0 else "") + "{} \\\\ \n\\hline \n".format(line)
+                                       0 else "") + "{} \\\\ \n\\hline \n".format(line)
     def alldouble(n, line, _): return ("\\hline \\hline \n" if n ==
-                                            0 else "") + "{} \\\\ \n\\hline \\hline \n".format(line)
+                                       0 else "") + "{} \\\\ \n\\hline \\hline \n".format(line)
 
 
 class LatexTableColBorderPreset:
@@ -55,43 +57,45 @@ class LatexTableJustificationPreset(Enum):
 
 class LatexTable:
     def __init__(self, caption: str | None = None) -> None:
-        self.alignment = LatexTableAlignment.left
-        self.placement = LatexTablePlacement.floating
-        self.caption = caption
+        self.__alignment = LatexTableAlignment.left
+        self.__placement = LatexTablePlacement.floating
+        self.__caption = caption
 
-        self.preset = [None, None, None]
-        self.dataset = None
+        self.__preset = [LatexTableColBorderPreset.none,
+                         LatexTableRowBorderPreset.none,
+                         LatexTableJustificationPreset.centerall]
+        self.__dataset = None
 
     def fixed(caption: str | None = None) -> LatexTable:
         instance = LatexTable(caption)
-        instance.placement = LatexTablePlacement.fixed
+        instance.__placement = LatexTablePlacement.fixed
         return instance
 
     def floating(caption: str | None = None) -> LatexTable:
         return LatexTable(caption)
 
     def aligned(self, alignment: LatexTableAlignment) -> LatexTable:
-        self.alignment = alignment
+        self.__alignment = alignment
         return self
 
     def with_caption(self, caption: str) -> LatexTable:
-        self.caption = caption
+        self.__caption = caption
         return self
 
     def with_col_preset(self, col_preset: LatexTableColBorderPreset):
-        self.preset[0] = col_preset
+        self.__preset[0] = col_preset
         return self
 
     def with_row_preset(self, row_preset: LatexTableRowBorderPreset):
-        self.preset[1] = row_preset
+        self.__preset[1] = row_preset
         return self
 
     def with_jus_preset(self, jus_preset):
-        self.preset[2] = jus_preset
+        self.__preset[2] = jus_preset
         return self
 
     def from_dataset(self, data: list[list[any]]) -> LatexTable:
-        self.dataset = data
+        self.__dataset = data
         return self
 
     def with_custom_spec(self, **kwargs) -> LatexTable:
@@ -110,21 +114,21 @@ class LatexTable:
 
         def as_ltx_arr(arr: list[any]) -> str:
             return "& ".join([str(elem) for elem in arr])
-        
+
         proper_ds, col_cnt = fill_ds_gaps(ds)
         row_cnt = len(proper_ds)
-        
+
         fmt_tab_args = preset[0](preset[2](col_cnt))
-        
+
         content = "".join([preset[1](n, as_ltx_arr(line), n == row_cnt - 1)
                           for (n, line) in enumerate(proper_ds)]).rstrip("\n")
         return Formatter.env("tabular")(content, args=fmt_tab_args).rstrip("\n")
 
     def __str__(self) -> str:
-        assert self.preset != [None, None, None]
-        assert self.dataset != None
-        content = self.alignment.value + \
-            LatexTable.__tabular_with_preset(self.dataset, self.preset)
-        if self.caption != None:
-            content += Formatter.command("caption", self.caption)
-        return Formatter.env("table")(content, opts=self.placement.value)
+        assert self.__preset != [None, None, None]
+        assert self.__dataset != None
+        content = self.__alignment.value + \
+            LatexTable.__tabular_with_preset(self.__dataset, self.__preset)
+        if self.__caption != None:
+            content += Formatter.command("caption", self.__caption)
+        return Formatter.env("table")(content, opts=self.__placement.value)

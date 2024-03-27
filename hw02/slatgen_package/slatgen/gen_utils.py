@@ -1,4 +1,3 @@
-
 class Formatter:
     def document_class(dc: str) -> str:
         template = "\\documentclass{{{}}}\n"
@@ -14,7 +13,7 @@ class Formatter:
     def paragraph(content: str) -> str:
         template = "{} \\par"
         return template.format(content)
-    
+
     def command(command: str, arg: str) -> str:
         template = "\\{0}{{{1}}}\n"
         return template.format(command, arg)
