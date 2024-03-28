@@ -1,3 +1,11 @@
+from enum import Enum
+
+
+class LatexPlacement(Enum):
+    fixed = "!h"
+    floating = None
+
+
 class Formatter:
     def document_class(dc: str) -> str:
         template = "\\documentclass{{{}}}\n"

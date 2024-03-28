@@ -1,17 +1,12 @@
 from __future__ import annotations
 from enum import Enum
-from .gen_utils import Formatter
+from .gen_utils import Formatter, LatexPlacement
 
 
 class LatexTableAlignment(Enum):
     left = "\\raggedright\n"
     right = "\\raggedleft"
     center = "\\centering"
-
-
-class LatexTablePlacement(Enum):
-    fixed = "!h"
-    floating = None
 
 
 class LatexTableRowBorderPreset:
@@ -58,7 +53,7 @@ class LatexTableJustificationPreset(Enum):
 class LatexTable:
     def __init__(self, caption: str | None = None) -> None:
         self.__alignment = LatexTableAlignment.left
-        self.__placement = LatexTablePlacement.floating
+        self.__placement = LatexPlacement.floating
         self.__caption = caption
 
         self.__preset = [LatexTableColBorderPreset.none,
@@ -68,7 +63,7 @@ class LatexTable:
 
     def fixed(caption: str | None = None) -> LatexTable:
         instance = LatexTable(caption)
-        instance.__placement = LatexTablePlacement.fixed
+        instance.__placement = LatexPlacement.fixed
         return instance
 
     def floating(caption: str | None = None) -> LatexTable:

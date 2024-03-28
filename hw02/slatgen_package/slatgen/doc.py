@@ -1,6 +1,7 @@
 from __future__ import annotations
 from .gen_utils import Formatter
-from .table import LatexTable as __LatexTable
+from .table import LatexTable
+from .image import LatexImage
 
 
 class LatexDoc:
@@ -38,8 +39,11 @@ class LatexDoc:
         self.__cur_arg_stack[-1] = args
         return self
 
-    def as_table(self, table: __LatexTable) -> LatexDoc:
+    def as_table(self, table: LatexTable) -> LatexDoc:
         return self.as_raw(str(table))
+
+    def as_image(self, image: LatexImage) -> LatexDoc:
+        return self.as_raw(str(image))
 
     def insert_content(self) -> LatexDoc:
         content = "\n".join(self.__cur_body_stack)
