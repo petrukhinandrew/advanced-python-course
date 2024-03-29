@@ -1,4 +1,4 @@
-# HW 02 
+# ДЗ 2. 3/3
 
 Код пакета содержится в `slatgen_package` и опубликован [тут](https://test.pypi.org/project/slatgen/)
 
