@@ -1,4 +1,8 @@
 from __future__ import annotations
+from itertools import chain
+
+
+def flatten(*x): return list(chain(x))
 
 
 class BaseMatrix:
@@ -7,6 +11,15 @@ class BaseMatrix:
 
     def value(self) -> list[list[int]]:
         return self.__data
+
+    def __eq__(self, __value: object) -> bool:
+        if not isinstance(__value, BaseMatrix):
+            return False
+        if len(self.value()) != len(__value.value()):
+            return False
+        if len(self.value()[0]) != len(__value.value()[0]):
+            return False
+        return flatten(*self.value()) == flatten(*__value.value())
 
     def __str__(self) -> str:
         return "\n".join(map(str, self.__data))
