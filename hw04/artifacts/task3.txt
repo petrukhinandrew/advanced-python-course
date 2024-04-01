@@ -1,0 +1,23 @@
+2024-04-01 15:04:19,882 - Process's started
+2024-04-01 15:04:22,224 - select stdin at 1711973062.2239637
+2024-04-01 15:04:22,224 - stdin got asdasd
+2024-04-01 15:04:22,227 - select out pipe at 1711973062.2277586
+2024-04-01 15:04:22,228 - out pipe got nfqnfq
+2024-04-01 15:04:22,228 - wrote out pipe data to stdout at 1711973062.2281556
+2024-04-01 15:04:24,544 - select stdin at 1711973064.5440018
+2024-04-01 15:04:24,544 - stdin got z,mxcnzxc
+2024-04-01 15:04:25,961 - select stdin at 1711973065.9610455
+2024-04-01 15:04:25,961 - stdin got qowieqowejq
+2024-04-01 15:04:27,228 - select out pipe at 1711973067.228304
+2024-04-01 15:04:27,228 - out pipe got m,zkpamkp
+2024-04-01 15:04:27,228 - wrote out pipe data to stdout at 1711973067.228674
+2024-04-01 15:04:27,615 - select stdin at 1711973067.6153123
+2024-04-01 15:04:27,615 - stdin got aslkdnalsmd
+2024-04-01 15:04:32,233 - select out pipe at 1711973072.2335906
+2024-04-01 15:04:32,233 - out pipe got dbjvrdbjrwd
+2024-04-01 15:04:32,234 - wrote out pipe data to stdout at 1711973072.2340164
+2024-04-01 15:04:37,237 - select out pipe at 1711973077.2370682
+2024-04-01 15:04:37,237 - out pipe got nfyxqanyfzq
+2024-04-01 15:04:37,237 - wrote out pipe data to stdout at 1711973077.2374694
+2024-04-01 15:04:43,916 - select stdin at 1711973083.9168758
+2024-04-01 15:04:43,917 - stdin got quit
